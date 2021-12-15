@@ -9,7 +9,10 @@ import (
 
 func main() {
 	client := github.NewClient(nil)
+	listByOrg(client)
+}
 
+func listByOrg(client *github.Client) {
 	opt := &github.RepositoryListByOrgOptions{Type: "public"}
 	repos, _, err := client.Repositories.ListByOrg(context.Background(), "github", opt)
 
@@ -20,4 +23,5 @@ func main() {
 	for _, v := range repos {
 		fmt.Println(v)
 	}
+
 }
