@@ -13,6 +13,11 @@ func main() {
 	opt := &github.RepositoryListByOrgOptions{Type: "public"}
 	repos, _, err := client.Repositories.ListByOrg(context.Background(), "github", opt)
 
-	fmt.Println(repos)
-	fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for _, v := range repos {
+		fmt.Println(v)
+	}
 }
