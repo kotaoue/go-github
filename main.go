@@ -9,8 +9,9 @@ import (
 
 func main() {
 	client := github.NewClient(nil)
-	listByOrg(client)
-	list(client)
+	// listByOrg(client)
+	// list(client)
+	privateList(client)
 }
 
 func listByOrg(client *github.Client) {
@@ -28,6 +29,19 @@ func listByOrg(client *github.Client) {
 
 func list(client *github.Client) {
 	opt := &github.RepositoryListOptions{Type: "public"}
+	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for _, v := range repos {
+		fmt.Println(v)
+	}
+}
+
+func privateList(client *github.Client) {
+	opt := &github.RepositoryListOptions{Type: "private"}
 	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
 
 	if err != nil {
