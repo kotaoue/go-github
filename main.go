@@ -9,8 +9,8 @@ import (
 
 func main() {
 	client := github.NewClient(nil)
-	// listByOrg(client)
-	// list(client)
+	listByOrg(client)
+	list(client)
 	privateList(client)
 }
 
@@ -23,7 +23,7 @@ func listByOrg(client *github.Client) {
 	}
 
 	for _, v := range repos {
-		fmt.Println(v)
+		fmt.Println(v.Name)
 	}
 }
 
@@ -36,7 +36,7 @@ func list(client *github.Client) {
 	}
 
 	for _, v := range repos {
-		fmt.Println(v)
+		fmt.Println(v.Name)
 	}
 }
 
@@ -49,6 +49,6 @@ func privateList(client *github.Client) {
 	}
 
 	for _, v := range repos {
-		fmt.Println(v)
+		fmt.Println(v.Name)
 	}
 }
