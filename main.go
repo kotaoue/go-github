@@ -49,6 +49,6 @@ func privateList(client *github.Client) {
 
 func printRepository(repos []*github.Repository) {
 	for _, v := range repos {
-		fmt.Printf("Name:%s\n", *v.Name)
+		fmt.Printf("Name:%s GitURL:%s\n", *v.Name, *v.GitURL)
 	}
 }
