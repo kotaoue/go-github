@@ -10,7 +10,7 @@ import (
 func main() {
 	client := github.NewClient(nil)
 	listByOrg(client)
-	list(client)
+	publicList(client)
 	privateList(client)
 }
 
@@ -25,7 +25,7 @@ func listByOrg(client *github.Client) {
 	printRepository(repos)
 }
 
-func list(client *github.Client) {
+func publicList(client *github.Client) {
 	opt := &github.RepositoryListOptions{Type: "public"}
 	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
 
