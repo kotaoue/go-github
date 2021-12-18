@@ -43,6 +43,7 @@ func publicList(client *github.Client) {
 
 func privateList(client *github.Client) {
 	fmt.Println("----private----")
+	fmt.Println("----When i don't have permittion,  printing public repository only----")
 	list(client, &github.RepositoryListOptions{Type: "private"})
 }
 
