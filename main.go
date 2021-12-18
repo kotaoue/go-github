@@ -22,9 +22,7 @@ func listByOrg(client *github.Client) {
 		fmt.Println(err)
 	}
 
-	for _, v := range repos {
-		fmt.Println(v.Name)
-	}
+	printRepository(repos)
 }
 
 func list(client *github.Client) {
@@ -35,9 +33,7 @@ func list(client *github.Client) {
 		fmt.Println(err)
 	}
 
-	for _, v := range repos {
-		fmt.Println(v.Name)
-	}
+	printRepository(repos)
 }
 
 func privateList(client *github.Client) {
@@ -48,7 +44,11 @@ func privateList(client *github.Client) {
 		fmt.Println(err)
 	}
 
+	printRepository(repos)
+}
+
+func printRepository(repos []*github.Repository) {
 	for _, v := range repos {
-		fmt.Println(v.Name)
+		fmt.Println(*v.Name)
 	}
 }
