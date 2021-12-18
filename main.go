@@ -25,8 +25,7 @@ func listByOrg(client *github.Client) {
 	printRepository(repos)
 }
 
-func publicList(client *github.Client) {
-	opt := &github.RepositoryListOptions{Type: "public"}
+func list(client *github.Client, opt *github.RepositoryListOptions) {
 	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
 
 	if err != nil {
@@ -36,15 +35,12 @@ func publicList(client *github.Client) {
 	printRepository(repos)
 }
 
+func publicList(client *github.Client) {
+	list(client, &github.RepositoryListOptions{Type: "public"})
+}
+
 func privateList(client *github.Client) {
-	opt := &github.RepositoryListOptions{Type: "private"}
-	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	printRepository(repos)
+	list(client, &github.RepositoryListOptions{Type: "private"})
 }
 
 func printRepository(repos []*github.Repository) {
