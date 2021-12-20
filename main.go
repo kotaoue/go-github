@@ -10,11 +10,13 @@ import (
 )
 
 var (
-	mode string
+	mode   string
+	source string
 )
 
 func init() {
-	flag.StringVar(&mode, "mode", "public", "[org|publicList|privateList]")
+	flag.StringVar(&mode, "mode", "public", "what type of list.[org|publicList|privateList]")
+	flag.StringVar(&source, "source", "kotaoue", "datasource name")
 	flag.Parse()
 }
 
@@ -46,7 +48,7 @@ func newClient() *github.Client {
 
 func listByOrg(client *github.Client) {
 	opt := &github.RepositoryListByOrgOptions{Type: "public"}
-	repos, _, err := client.Repositories.ListByOrg(context.Background(), "github", opt)
+	repos, _, err := client.Repositories.ListByOrg(context.Background(), source, opt)
 
 	if err != nil {
 		fmt.Println(err)
@@ -56,7 +58,7 @@ func listByOrg(client *github.Client) {
 }
 
 func list(client *github.Client, opt *github.RepositoryListOptions) {
-	repos, _, err := client.Repositories.List(context.Background(), "kotaoue", opt)
+	repos, _, err := client.Repositories.List(context.Background(), source, opt)
 
 	if err != nil {
 		fmt.Println(err)
@@ -72,7 +74,7 @@ func publicList(client *github.Client) {
 func privateList(client *github.Client) {
 	fmt.Println("----private----")
 	fmt.Println("----When i don't have permittion,  printing public repository only----")
-	list(client, &github.RepositoryListOptions{Type: "private"})
+	list(client, &github.RepositoryListOptions{Type: source})
 }
 
 func printRepository(repos []*github.Repository) {
