@@ -2,11 +2,21 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 
 	"github.com/google/go-github/v41/github"
 	"golang.org/x/oauth2"
 )
+
+var (
+	mode string
+)
+
+func init() {
+	flag.StringVar(&mode, "mode", "", "[org|publicList|privateList]")
+	flag.Parse()
+}
 
 func main() {
 	ctx := context.Background()
@@ -16,9 +26,14 @@ func main() {
 	tc := oauth2.NewClient(ctx, ts)
 
 	client := github.NewClient(tc)
-	listByOrg(client)
-	publicList(client)
-	privateList(client)
+	switch mode {
+	case "org":
+		listByOrg(client)
+	case "public":
+		publicList(client)
+	case "private":
+		privateList(client)
+	}
 }
 
 func listByOrg(client *github.Client) {
