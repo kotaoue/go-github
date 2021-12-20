@@ -14,7 +14,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&mode, "mode", "", "[org|publicList|privateList]")
+	flag.StringVar(&mode, "mode", "public", "[org|publicList|privateList]")
 	flag.Parse()
 }
 
