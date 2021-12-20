@@ -19,13 +19,9 @@ func init() {
 }
 
 func main() {
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: "... your access token ..."},
-	)
-	tc := oauth2.NewClient(ctx, ts)
+	fmt.Printf("mode:%s\n", mode)
 
-	client := github.NewClient(tc)
+	client := newClient()
 	switch mode {
 	case "org":
 		listByOrg(client)
@@ -36,8 +32,19 @@ func main() {
 	}
 }
 
+func newClient() *github.Client {
+	switch mode {
+	case "private":
+		ctx := context.Background()
+		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: "... your access token ..."})
+		return github.NewClient(oauth2.NewClient(ctx, ts))
+
+	}
+
+	return github.NewClient(nil)
+}
+
 func listByOrg(client *github.Client) {
-	fmt.Println("----org----")
 	opt := &github.RepositoryListByOrgOptions{Type: "public"}
 	repos, _, err := client.Repositories.ListByOrg(context.Background(), "github", opt)
 
@@ -59,7 +66,6 @@ func list(client *github.Client, opt *github.RepositoryListOptions) {
 }
 
 func publicList(client *github.Client) {
-	fmt.Println("----public----")
 	list(client, &github.RepositoryListOptions{Type: "public"})
 }
 
