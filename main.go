@@ -12,11 +12,13 @@ import (
 var (
 	mode   string
 	source string
+	token  string
 )
 
 func init() {
 	flag.StringVar(&mode, "mode", "public", "what type of list.[org|publicList|privateList]")
 	flag.StringVar(&source, "source", "kotaoue", "datasource name")
+	flag.StringVar(&token, "token", "", "GitHub Access Token. cf. https://github.com/settings/tokens")
 	flag.Parse()
 }
 
@@ -73,7 +75,7 @@ func publicList(client *github.Client) {
 
 func privateList(client *github.Client) {
 	fmt.Println("----private----")
-	fmt.Println("----When i don't have permittion,  printing public repository only----")
+	fmt.Println("----When i don't have permittion, printing public repository only----")
 	list(client, &github.RepositoryListOptions{Type: source})
 }
 
