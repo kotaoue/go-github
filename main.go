@@ -33,6 +33,8 @@ func main() {
 		publicList(client)
 	case "private":
 		privateList(client)
+	case "issues":
+		issues(client)
 	}
 }
 
@@ -80,5 +82,21 @@ func privateList(client *github.Client) {
 func printRepository(repos []*github.Repository) {
 	for _, v := range repos {
 		fmt.Printf("%s\n\t%s\n\t%s\n", *v.Name, *v.Description, *v.GitURL)
+	}
+}
+
+func issues(client *github.Client) {
+	issues, _, err := client.Issues.List(context.Background(), false, &github.IssueListOptions{})
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	printIssues(issues)
+}
+
+func printIssues(repos []*github.Issue) {
+	for _, v := range repos {
+		fmt.Printf("%s\n\t%s\n", *v.Title, *v.URL)
 	}
 }
