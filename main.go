@@ -92,11 +92,7 @@ func issues(client *github.Client) {
 		fmt.Println(err)
 	}
 
-	printIssues(issues)
-}
-
-func printIssues(repos []*github.Issue) {
-	for _, v := range repos {
+	for _, v := range issues {
 		fmt.Printf("%s\n\t%s\n", *v.Title, *v.URL)
 	}
 }
