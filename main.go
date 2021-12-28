@@ -41,10 +41,10 @@ func main() {
 func newClient() *github.Client {
 	switch mode {
 	case "private":
+	case "issues":
 		ctx := context.Background()
 		ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: token})
 		return github.NewClient(oauth2.NewClient(ctx, ts))
-
 	}
 
 	return github.NewClient(nil)
